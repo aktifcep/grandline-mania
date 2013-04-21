@@ -31,6 +31,8 @@ public class QuestionManager {
 			handler = new DatabaseHandler(context);
 		}
 		
+		DataManager.loadData(handler);
+		
 		questions = new HashMap<Integer, QuestionBundle>();
 		answered = new HashMap<Integer, QuestionBundle>();
 		
@@ -50,6 +52,11 @@ public class QuestionManager {
 			handler.updateQuestion(previous.getID(), true);
 			answered.put(previous.getID(), previous);
 		}
+		
+		if(answered.size() == questions.size()) {
+			return null;
+		}
+		
 		int idx = 0;
 		do {
 			idx = getRandomNumber();
