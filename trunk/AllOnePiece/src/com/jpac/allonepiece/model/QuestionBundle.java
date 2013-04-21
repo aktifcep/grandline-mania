@@ -14,12 +14,7 @@ public class QuestionBundle {
 	
 	private long randomLetterSeed;
 
-	public QuestionBundle(int id, long seed, Category category, String answer) {
-		this.category = category;
-		this.answer = answer;
-		this.id = id;
-		this.randomLetterSeed = seed;
-	}
+	private boolean answered;
 	
 	public BitmapDrawable getImage() {
 		return this.image;
@@ -40,4 +35,33 @@ public class QuestionBundle {
 	public long getRandomLetterSeed() {
 		return this.randomLetterSeed;
 	}
+	
+	public boolean isAnswered() {
+		return this.answered;
+	}
+
+	public void setImage(BitmapDrawable image) {
+		this.image = image;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+	public void setID(int id) {
+		this.id = id;
+	}
+
+	public void setRandomLetterSeed(long randomLetterSeed) {
+		this.randomLetterSeed = randomLetterSeed;
+	}
+
+	public void setAnswered(boolean answered) {
+		this.answered = answered;
+	}
+	
 }
