@@ -31,7 +31,7 @@ public class QuestionManager {
 			handler = new DatabaseHandler(context);
 		}
 		
-		DataManager.loadData(handler);
+		DataManager.loadData(handler, context);
 		
 		questions = new HashMap<Integer, QuestionBundle>();
 		answered = new HashMap<Integer, QuestionBundle>();
