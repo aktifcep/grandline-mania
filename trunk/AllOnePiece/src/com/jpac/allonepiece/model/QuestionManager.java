@@ -8,6 +8,7 @@ import java.util.Random;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 
 public class QuestionManager {
 
@@ -45,6 +46,8 @@ public class QuestionManager {
 				answered.put(qb.getID(), qb);
 			}
 		}
+		
+		Log.v("jpac","q#="+questions.size()+";a#="+answered.size());
 	}
 	
 	public QuestionBundle getNextQuestion(QuestionBundle previous) {
@@ -69,5 +72,26 @@ public class QuestionManager {
 	
 	private int getRandomNumber() {
 		return random.nextInt(questions.size());
+	}
+	
+	private final String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	
+	public char[] generateRandomLetters(String answer, long seed) {
+		random.setSeed(seed);
+		// length of answer
+		int n = answer.length();
+		// length of filler
+		int m = 14 - n;
+		
+		String filler = "";
+		
+		// randomly selects filler letters
+		for(int i=0; i<m; i++) {
+			filler += letters.charAt(random.nextInt(26));
+		}
+		
+		filler += answer;
+		
+		return filler.toCharArray();
 	}
 }
