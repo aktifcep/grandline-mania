@@ -42,6 +42,7 @@ public class DataManager {
 				qb.setAnswered(false);
 				
 				Log.v("jpac","Question Created");
+				Log.v("jpac","Answer="+line[0].trim()+";Category="+line[1].trim()+";"+qb.isAnswered());
 				handler.addQuestion(qb);
 			}
 		}

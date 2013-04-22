@@ -30,6 +30,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		Log.v("jpac","db created");
 		String CREATE_ANSWER_TABLE = "CREATE TABLE " + TABLE_ANSWERS + "("
 				+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_ANSWER + " TEXT,"
 				+ KEY_CATEGORY + " TEXT," + KEY_SEED + " TEXT," + KEY_ANSWERED
@@ -54,7 +55,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_ANSWERED, qb.isAnswered() ? 1 : 0);
 
 		Log.v("jpac","Added Question");
-		db.insert(TABLE_ANSWERS, null, values);
+		Log.v("jpac","Log="+values.get(KEY_ANSWERED));
+		Log.v("jpac","Inserting Result="+db.insert(TABLE_ANSWERS, null, values));
 		db.close();
 	}
 
@@ -88,6 +90,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(query, null);
 		
+		Log.v("jpac","CountOfRecords="+cursor.getCount());
+		
 		if(cursor.moveToFirst()) {
 			do {
 				QuestionBundle qb = new QuestionBundle();
@@ -96,9 +100,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				qb.setCategory(Category.valueOf(cursor.getString(2)));
 				qb.setRandomLetterSeed(Long.valueOf(cursor.getString(3)));
 				qb.setAnswered(Integer.valueOf(cursor.getString(4)) == 0 ? false : true);
+				questionList.add(qb);
 			} while(cursor.moveToNext());
 		}
 		
+		Log.v("jpac","Count="+questionList.size());
 		return questionList;
 	}
 	
