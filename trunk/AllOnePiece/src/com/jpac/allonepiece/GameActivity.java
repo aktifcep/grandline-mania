@@ -2,7 +2,11 @@ package com.jpac.allonepiece;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.jpac.allonepiece.model.QuestionBundle;
 import com.jpac.allonepiece.model.QuestionManager;
@@ -12,9 +16,24 @@ public class GameActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+                                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 		setContentView(R.layout.activity_game);
+
+		showQuestion();
+	}
+	
+	public void showQuestion() {
 		
 		QuestionBundle qb = QuestionManager.getInstance().getNextQuestion(null);
+		
+		if(qb == null) {
+			Toast.makeText(getApplicationContext(), "Game is Finished", Toast.LENGTH_SHORT).show();
+		} else {
+		
 		char[] xyz = QuestionManager.getInstance().generateRandomLetters(qb.getAnswer(), qb.getRandomLetterSeed());
 		
 		((Button) findViewById(R.id.letter1)).setText(""+xyz[0]);
@@ -31,5 +50,12 @@ public class GameActivity extends Activity {
 		((Button) findViewById(R.id.letter12)).setText(""+xyz[11]);
 		((Button) findViewById(R.id.letter13)).setText(""+xyz[12]);
 		((Button) findViewById(R.id.letter14)).setText(""+xyz[13]);
+		}		
+	}
+	
+	protected void prepareAnswer(String answer) {
+		LinearLayout layout = (LinearLayout) findViewById(R.id.answerLayout);
+		
+		
 	}
 }
