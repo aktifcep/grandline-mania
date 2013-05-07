@@ -8,7 +8,8 @@ import java.util.Random;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
+
+import com.jpac.allonepiece.util.Util;
 
 public class QuestionManager {
 
@@ -46,8 +47,6 @@ public class QuestionManager {
 				answered.put(qb.getID(), qb);
 			}
 		}
-		
-		Log.v("jpac","q#="+questions.size()+";a#="+answered.size());
 	}
 	
 	public QuestionBundle getNextQuestion(QuestionBundle previous) {
@@ -92,6 +91,6 @@ public class QuestionManager {
 		
 		filler += answer;
 		
-		return filler.toCharArray();
+		return Util.shuffleContent(filler.toCharArray());
 	}
 }
