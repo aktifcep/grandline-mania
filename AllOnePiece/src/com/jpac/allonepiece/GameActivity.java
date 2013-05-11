@@ -8,11 +8,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.jpac.allonepiece.model.ButtonManager;
 import com.jpac.allonepiece.model.QuestionBundle;
 import com.jpac.allonepiece.model.QuestionManager;
 
 public class GameActivity extends Activity {
 
+	private ButtonManager btnManager = ButtonManager.getInstance();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,23 +36,39 @@ public class GameActivity extends Activity {
 		if(qb == null) {
 			Toast.makeText(getApplicationContext(), "Game is Finished", Toast.LENGTH_SHORT).show();
 		} else {
-		
-		char[] xyz = QuestionManager.getInstance().generateRandomLetters(qb.getAnswer(), qb.getRandomLetterSeed());
-		
-		((Button) findViewById(R.id.letter1)).setText(""+xyz[0]);
-		((Button) findViewById(R.id.letter2)).setText(""+xyz[1]);
-		((Button) findViewById(R.id.letter3)).setText(""+xyz[2]);
-		((Button) findViewById(R.id.letter4)).setText(""+xyz[3]);
-		((Button) findViewById(R.id.letter5)).setText(""+xyz[4]);
-		((Button) findViewById(R.id.letter6)).setText(""+xyz[5]);
-		((Button) findViewById(R.id.letter7)).setText(""+xyz[6]);
-		((Button) findViewById(R.id.letter8)).setText(""+xyz[7]);
-		((Button) findViewById(R.id.letter9)).setText(""+xyz[8]);
-		((Button) findViewById(R.id.letter10)).setText(""+xyz[9]);
-		((Button) findViewById(R.id.letter11)).setText(""+xyz[10]);
-		((Button) findViewById(R.id.letter12)).setText(""+xyz[11]);
-		((Button) findViewById(R.id.letter13)).setText(""+xyz[12]);
-		((Button) findViewById(R.id.letter14)).setText(""+xyz[13]);
+			
+			char[] xyz = QuestionManager.getInstance().generateRandomLetters(qb.getAnswer(), qb.getRandomLetterSeed());
+			
+			((Button) findViewById(R.id.letter1)).setText(""+xyz[0]);
+			((Button) findViewById(R.id.letter2)).setText(""+xyz[1]);
+			((Button) findViewById(R.id.letter3)).setText(""+xyz[2]);
+			((Button) findViewById(R.id.letter4)).setText(""+xyz[3]);
+			((Button) findViewById(R.id.letter5)).setText(""+xyz[4]);
+			((Button) findViewById(R.id.letter6)).setText(""+xyz[5]);
+			((Button) findViewById(R.id.letter7)).setText(""+xyz[6]);
+			((Button) findViewById(R.id.letter8)).setText(""+xyz[7]);
+			((Button) findViewById(R.id.letter9)).setText(""+xyz[8]);
+			((Button) findViewById(R.id.letter10)).setText(""+xyz[9]);
+			((Button) findViewById(R.id.letter11)).setText(""+xyz[10]);
+			((Button) findViewById(R.id.letter12)).setText(""+xyz[11]);
+			((Button) findViewById(R.id.letter13)).setText(""+xyz[12]);
+			((Button) findViewById(R.id.letter14)).setText(""+xyz[13]);
+			
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter1));
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter2));
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter3));
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter4));
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter5));
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter6));
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter7));
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter8));
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter9));
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter10));
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter11));
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter12));
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter13));
+			btnManager.addChoiceButton((Button) findViewById(R.id.letter14));
+			
 		}		
 	}
 	
