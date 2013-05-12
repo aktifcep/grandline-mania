@@ -4,13 +4,17 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jpac.allonepiece.model.AnswerOnClickListener;
 import com.jpac.allonepiece.model.ButtonManager;
 import com.jpac.allonepiece.model.QuestionBundle;
 import com.jpac.allonepiece.model.QuestionManager;
@@ -72,7 +76,17 @@ public class GameActivity extends Activity {
 			btnManager.addChoiceButton((Button) findViewById(R.id.letter13));
 			btnManager.addChoiceButton((Button) findViewById(R.id.letter14));
 			
+			((TextView) findViewById(R.id.categoryLabel)).setText(qb.getCategory().getName());
+			
 			prepareAnswer(qb.getAnswer());
+			
+			((Button) findViewById(R.id.backButton)).setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					GameActivity.this.finish();
+				}
+			});
 		}		
 	}
 	
@@ -95,17 +109,22 @@ public class GameActivity extends Activity {
 			String answers = subLayouts[i];
 			Log.v("jpac", "layer " + i + ":" + answers);
 			int m = answers.length();
-			
+			int idx = 0;
 			for(int j=0; j<m; j++) {
 				Button button = new Button(this);
 				Log.v("jpac", "Char: " + answers.charAt(j));
 				button.setText("");
-				button.setWidth(50);
+				button.setWidth(55);
+				button.setClickable(false);
+				button.setEnabled(false);
+				button.setOnClickListener(new AnswerOnClickListener(idx++));
 				sublayout.addView(button);
 				btnManager.addAnswerButton(button);
 			}
 			
 			layout.addView(sublayout);
+			
 		}
 	}
+	
 }
