@@ -52,4 +52,8 @@ public class ButtonManager {
 			}
 		}
 	}
+	
+	public void clearAnswer() {
+		answerButtons.clear();
+	}
 }

@@ -2,6 +2,9 @@ package com.jpac.allonepiece;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -69,12 +72,40 @@ public class GameActivity extends Activity {
 			btnManager.addChoiceButton((Button) findViewById(R.id.letter13));
 			btnManager.addChoiceButton((Button) findViewById(R.id.letter14));
 			
+			prepareAnswer(qb.getAnswer());
 		}		
 	}
 	
 	protected void prepareAnswer(String answer) {
+		Log.v("jpac", answer);
 		LinearLayout layout = (LinearLayout) findViewById(R.id.answerLayout);
 		
+		btnManager.clearAnswer();
 		
+		String[] subLayouts = answer.split("%");
+		int n = subLayouts.length;
+		
+		for(int i=0; i<n; i++) {
+			// TODO: put dynamic addition of linear layouts for answer here
+			LinearLayout sublayout = new LinearLayout(this);
+			sublayout.setOrientation(LinearLayout.HORIZONTAL);
+			sublayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+			sublayout.setGravity(Gravity.CENTER_HORIZONTAL);
+			
+			String answers = subLayouts[i];
+			Log.v("jpac", "layer " + i + ":" + answers);
+			int m = answers.length();
+			
+			for(int j=0; j<m; j++) {
+				Button button = new Button(this);
+				Log.v("jpac", "Char: " + answers.charAt(j));
+				button.setText("");
+				button.setWidth(50);
+				sublayout.addView(button);
+				btnManager.addAnswerButton(button);
+			}
+			
+			layout.addView(sublayout);
+		}
 	}
 }
