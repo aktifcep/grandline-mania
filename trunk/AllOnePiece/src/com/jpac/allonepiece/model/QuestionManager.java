@@ -77,8 +77,11 @@ public class QuestionManager {
 	
 	public char[] generateRandomLetters(String answer, long seed) {
 		random.setSeed(seed);
+		
+		String[] answers = answer.split("%");
+		
 		// length of answer
-		int n = answer.length();
+		int n = answer.length() - (answers.length-1);
 		// length of filler
 		int m = 14 - n;
 		
@@ -89,7 +92,9 @@ public class QuestionManager {
 			filler += letters.charAt(random.nextInt(26));
 		}
 		
-		filler += answer;
+		for(int i=0; i<answers.length; i++) {
+			filler += answers[i];
+		}
 		
 		return Util.shuffleContent(filler.toCharArray());
 	}

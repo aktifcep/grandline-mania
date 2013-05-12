@@ -4,9 +4,13 @@ public enum Category {
 
 	CHARACTER("CHARACTER"),
 	
-	LOCATION("LOCATION"),
+	ISLAND("ISLAND"),
+	
+	CITY("CITY/TOWN"),
 	
 	EVENT("EVENT"),
+	
+	WEAPON("WEAPON"),
 	
 	TECHNIQUE("TECHNIQUE");
 	

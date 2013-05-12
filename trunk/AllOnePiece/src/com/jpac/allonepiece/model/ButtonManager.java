@@ -17,12 +17,15 @@ public class ButtonManager {
 	
 	private ArrayList<Button> choicesButtons;
 	
+	private int choiceClicked = 0;
+	
 	private ButtonManager() {
 		answerButtons = new ArrayList<Button>();
 		choicesButtons = new ArrayList<Button>();
 	}
 	
 	public void addChoiceButton(Button button) {
+		button.setOnClickListener(new ChoiceOnClickListener());
 		choicesButtons.add(button);
 	}
 	
@@ -43,17 +46,52 @@ public class ButtonManager {
 		btn.setVisibility(btn.getVisibility()==View.VISIBLE?View.INVISIBLE:View.VISIBLE);
 	}
 	
+	public void setHyphen(int index) {
+		Button ans = answerButtons.get(index);
+		ans.setEnabled(false);
+		ans.setText("-");
+	}
+	
 	public void setAnswer(String text) {
 		int n = answerButtons.size();
 		for(int i=0; i<n; i++) {
 			Button btn = answerButtons.get(i);
 			if(btn.getText().length() == 0) {
 				btn.setText(text);
+				btn.setEnabled(true);
+				break;
+			}
+		}
+	}
+	
+	public void resetAnswer(int index, String text) {
+		Button ans = answerButtons.get(index);
+		ans.setEnabled(false);
+		ans.setText("");
+		
+		int n = choicesButtons.size();
+		
+		for(int i=0; i<n; i++) {
+			Button btn = choicesButtons.get(i);
+			if(btn.getText().toString().compareTo(text) == 0
+					&& btn.getVisibility() != View.VISIBLE) {
+				btn.setVisibility(View.VISIBLE);
+				choiceClicked--;
+				break;
 			}
 		}
 	}
 	
 	public void clearAnswer() {
 		answerButtons.clear();
+		choiceClicked = 0;
+	}
+	
+	public boolean toggleClickedChoiceButton() {
+		if(choiceClicked != answerButtons.size()) {
+			choiceClicked++;
+			return true;
+		}
+		return false;
 	}
 }
