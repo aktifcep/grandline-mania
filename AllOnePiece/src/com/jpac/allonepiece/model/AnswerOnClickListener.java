@@ -1,5 +1,6 @@
 package com.jpac.allonepiece.model;
 
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -11,6 +12,7 @@ public class AnswerOnClickListener implements OnClickListener {
 	private ButtonManager btnManager = ButtonManager.getInstance();
 
 	public AnswerOnClickListener(int index) {
+		Log.v("jpac", "Index: "+index);
 		this.index = index;
 	}
 	

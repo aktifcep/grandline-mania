@@ -98,6 +98,7 @@ public class GameActivity extends Activity {
 		
 		String[] subLayouts = answer.split("%");
 		int n = subLayouts.length;
+		int idx = 0;
 		
 		for(int i=0; i<n; i++) {
 			// TODO: put dynamic addition of linear layouts for answer here
@@ -109,7 +110,6 @@ public class GameActivity extends Activity {
 			String answers = subLayouts[i];
 			Log.v("jpac", "layer " + i + ":" + answers);
 			int m = answers.length();
-			int idx = 0;
 			for(int j=0; j<m; j++) {
 				Button button = new Button(this);
 				Log.v("jpac", "Char: " + answers.charAt(j));
