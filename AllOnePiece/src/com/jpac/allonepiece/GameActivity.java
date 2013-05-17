@@ -87,6 +87,8 @@ public class GameActivity extends Activity {
 					GameActivity.this.finish();
 				}
 			});
+			
+			((TextView) findViewById(R.id.levelLabel)).setText(""+QuestionManager.getInstance().getAnsweredQuestionsCount());
 		}		
 	}
 	

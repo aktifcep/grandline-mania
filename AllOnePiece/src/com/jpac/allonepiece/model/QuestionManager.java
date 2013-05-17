@@ -98,4 +98,8 @@ public class QuestionManager {
 		
 		return Util.shuffleContent(filler.toCharArray());
 	}
+	
+	public int getAnsweredQuestionsCount() {
+		return handler.getAnsweredQuestionCount();
+	}
 }
