@@ -1,6 +1,7 @@
 package com.jpac.allonepiece.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -115,6 +116,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		int count = cursor.getCount();
 		cursor.close();
 		return count;
+	}
+	
+	public int getAnsweredQuestionCount() {
+		List<QuestionBundle> list = getAllQuestions();
+		
+		Iterator<QuestionBundle> iterator = list.iterator();
+		
+		int answered = 0;
+		
+		while(iterator.hasNext()) {
+			QuestionBundle qb = iterator.next();
+			if(qb.isAnswered()) {
+				answered++;
+			}
+		}
+		
+		return answered;
 	}
 	
 	public int updateQuestion(int id, boolean answered) {

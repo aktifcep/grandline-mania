@@ -2,6 +2,7 @@ package com.jpac.allonepiece.model;
 
 import java.util.ArrayList;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -69,10 +70,13 @@ public class ButtonManager {
 		ans.setEnabled(false);
 		ans.setText("");
 		
+		Log.v("jpac", "Answer Text: " + index + ":" + text);
+		
 		int n = choicesButtons.size();
 		
 		for(int i=0; i<n; i++) {
 			Button btn = choicesButtons.get(i);
+			Log.v("jpac", "Comparing... [" + text + "," + btn.getText() + "]");
 			if(btn.getText().toString().compareTo(text) == 0
 					&& btn.getVisibility() != View.VISIBLE) {
 				btn.setVisibility(View.VISIBLE);
