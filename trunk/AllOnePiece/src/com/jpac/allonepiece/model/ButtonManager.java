@@ -2,7 +2,6 @@ package com.jpac.allonepiece.model;
 
 import java.util.ArrayList;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -19,6 +18,8 @@ public class ButtonManager {
 	private ArrayList<Button> choicesButtons;
 	
 	private int choiceClicked = 0;
+	
+	private AnswerDoneListener answerDoneListener;
 	
 	private ButtonManager() {
 		answerButtons = new ArrayList<Button>();
@@ -63,6 +64,17 @@ public class ButtonManager {
 				break;
 			}
 		}
+		checkAnswer();
+	}
+	
+	private void checkAnswer() {
+		if(choiceClicked == answerButtons.size()) {
+			String sequence = "";
+			for(int i=0; i<choiceClicked; i++) {
+				sequence += answerButtons.get(i).getText().toString();
+			}
+			this.answerDoneListener.onAnswerComplete(sequence);
+		}
 	}
 	
 	public void resetAnswer(int index, String text) {
@@ -70,13 +82,10 @@ public class ButtonManager {
 		ans.setEnabled(false);
 		ans.setText("");
 		
-		Log.v("jpac", "Answer Text: " + index + ":" + text);
-		
 		int n = choicesButtons.size();
 		
 		for(int i=0; i<n; i++) {
 			Button btn = choicesButtons.get(i);
-			Log.v("jpac", "Comparing... [" + text + "," + btn.getText() + "]");
 			if(btn.getText().toString().compareTo(text) == 0
 					&& btn.getVisibility() != View.VISIBLE) {
 				btn.setVisibility(View.VISIBLE);
@@ -98,4 +107,18 @@ public class ButtonManager {
 		}
 		return false;
 	}
+	
+	public void addAnswerDoneListener(AnswerDoneListener listener) {
+		this.answerDoneListener = listener;
+	}
+
+	public void reset() {
+		int n = choicesButtons.size();
+		
+		for(int i=0; i<n; i++) {
+			choicesButtons.get(i).setVisibility(View.VISIBLE);
+		}
+		choicesButtons.clear();
+	}
+	
 }

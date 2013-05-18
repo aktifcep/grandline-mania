@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.content.Context;
-import android.util.Log;
 
 
 public class DataManager {
@@ -12,7 +11,6 @@ public class DataManager {
 	private DataManager() { }
 	
 	public static void loadData(DatabaseHandler handler, Context context) {
-		Log.v("jpac","Loading Data");
 		int n = handler.getQuestionsCount();
 		
 		String content = "";
@@ -41,8 +39,6 @@ public class DataManager {
 				qb.setRandomLetterSeed(i);
 				qb.setAnswered(false);
 				
-				Log.v("jpac","Question Created");
-				Log.v("jpac","Answer="+line[0].trim()+";Category="+line[1].trim()+";"+qb.isAnswered());
 				handler.addQuestion(qb);
 			}
 		}
