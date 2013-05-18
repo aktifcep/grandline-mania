@@ -1,27 +1,32 @@
 package com.jpac.allonepiece;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jpac.allonepiece.model.AnswerDoneListener;
 import com.jpac.allonepiece.model.AnswerOnClickListener;
 import com.jpac.allonepiece.model.ButtonManager;
 import com.jpac.allonepiece.model.QuestionBundle;
 import com.jpac.allonepiece.model.QuestionManager;
 
-public class GameActivity extends Activity {
+public class GameActivity extends Activity implements AnswerDoneListener {
 
 	private ButtonManager btnManager = ButtonManager.getInstance();
+	
+	private String currentAnswer;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,9 @@ public class GameActivity extends Activity {
                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.activity_game);
+		
+		btnManager.addAnswerDoneListener(this);
+		currentAnswer = "";
 
 		showQuestion();
 	}
@@ -60,7 +68,7 @@ public class GameActivity extends Activity {
 			((Button) findViewById(R.id.letter12)).setText(""+xyz[11]);
 			((Button) findViewById(R.id.letter13)).setText(""+xyz[12]);
 			((Button) findViewById(R.id.letter14)).setText(""+xyz[13]);
-			
+
 			btnManager.addChoiceButton((Button) findViewById(R.id.letter1));
 			btnManager.addChoiceButton((Button) findViewById(R.id.letter2));
 			btnManager.addChoiceButton((Button) findViewById(R.id.letter3));
@@ -93,9 +101,8 @@ public class GameActivity extends Activity {
 	}
 	
 	protected void prepareAnswer(String answer) {
-		Log.v("jpac", answer);
 		LinearLayout layout = (LinearLayout) findViewById(R.id.answerLayout);
-		
+		layout.removeAllViews();
 		btnManager.clearAnswer();
 		
 		String[] subLayouts = answer.split("%");
@@ -109,12 +116,11 @@ public class GameActivity extends Activity {
 			sublayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			sublayout.setGravity(Gravity.CENTER_HORIZONTAL);
 			
+			currentAnswer += subLayouts[i];
 			String answers = subLayouts[i];
-			Log.v("jpac", "layer " + i + ":" + answers);
 			int m = answers.length();
 			for(int j=0; j<m; j++) {
 				Button button = new Button(this);
-				Log.v("jpac", "Char: " + answers.charAt(j));
 				button.setText("");
 				button.setWidth(55);
 				button.setClickable(false);
@@ -126,6 +132,16 @@ public class GameActivity extends Activity {
 			
 			layout.addView(sublayout);
 			
+		}
+	}
+
+	@Override
+	public void onAnswerComplete(String sequence) {
+		if(sequence.compareTo(currentAnswer) == 0) {
+			startActivity(new Intent(this, GameActivity.class));
+		} else {
+			Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+			findViewById(R.id.answerLayout).startAnimation(shake);
 		}
 	}
 	
