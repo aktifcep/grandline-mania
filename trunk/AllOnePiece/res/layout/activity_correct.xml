@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Button" />
+        android:text="@string/continue_button" />
 
     <TextView
         android:id="@+id/textView1"
@@ -29,7 +29,7 @@
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:text="Medium Text"
+        android:text="@string/answered_correct_detail"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <LinearLayout
@@ -49,7 +49,7 @@
         android:layout_alignLeft="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:text="Large Text"
+        android:textIsSelectable="false"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

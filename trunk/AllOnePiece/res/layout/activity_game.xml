@@ -17,7 +17,7 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="@string/back_button" />
 
         <TextView
             android:id="@+id/difficultyLabel"
@@ -25,8 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textIsSelectable="false"
             android:textColor="@color/white" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Medium Text"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/white" />
     </RelativeLayout>
@@ -45,7 +45,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/headerLayout"
         android:layout_centerHorizontal="true" >
-"
 
         <TextView
             android:id="@+id/categoryLabel"
@@ -53,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="Large Text"
+            android:textIsSelectable="false"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ImageView
@@ -62,25 +61,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/categoryLabel"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/ic_launcher"
+            android:contentDescription="@string/empty" />
 
-        <Button
-            android:id="@+id/addLetterButton"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/categoryLabel"
-            android:text="Button" />
-
-        <Button
-            android:id="@+id/removeLetterButton"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/addLetterButton"
-            android:text="Button" />
     </RelativeLayout>
 
     <LinearLayout
@@ -96,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
 
         <Button
             android:id="@+id/letter9"
@@ -104,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
 
         <Button
             android:id="@+id/letter10"
@@ -112,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
 
         <Button
             android:id="@+id/letter11"
@@ -120,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
 
         <Button
             android:id="@+id/letter12"
@@ -128,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
 
         <Button
             android:id="@+id/letter13"
@@ -136,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
 
         <Button
             android:id="@+id/letter14"
@@ -144,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
     </LinearLayout>
 
     <LinearLayout
@@ -160,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
 
         <Button
             android:id="@+id/letter2"
@@ -168,7 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
 
         <Button
             android:id="@+id/letter3"
@@ -176,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
 
         <Button
             android:id="@+id/letter4"
@@ -184,7 +167,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
 
         <Button
             android:id="@+id/letter5"
@@ -192,7 +175,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
 
         <Button
             android:id="@+id/letter6"
@@ -200,7 +183,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
 
         <Button
             android:id="@+id/letter7"
@@ -208,7 +191,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="A" />
+            android:text="@string/empty" />
         
     </LinearLayout>
 
