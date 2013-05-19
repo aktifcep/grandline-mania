@@ -138,11 +138,16 @@ public class GameActivity extends Activity implements AnswerDoneListener {
 	@Override
 	public void onAnswerComplete(String sequence) {
 		if(sequence.compareTo(currentAnswer) == 0) {
-			startActivity(new Intent(this, GameActivity.class));
+			startActivity(new Intent(this, CorrectAnswerActivity.class));
 		} else {
 			Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
 			findViewById(R.id.answerLayout).startAnimation(shake);
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
 	}
 	
 }

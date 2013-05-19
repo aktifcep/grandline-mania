@@ -17,5 +17,9 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:windowBackground">@drawable/background</item>
     </style>
+    
+    <style name="DialogTheme" parent="@android:style/Theme.Dialog">
+        
+    </style>
 
 </resources>
