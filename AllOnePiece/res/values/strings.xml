@@ -6,5 +6,9 @@
     <string name="menu_settings">Settings</string>
     <string name="answered_correct">AWESOME!</string>
     <string name="answered_correct_detail">You solved the puzzle.</string>
+    <string name="continue_button">CONTINUE</string>
+    <string name="play_button">PLAY</string>
+    <string name="empty"> </string>
+    <string name="back_button">BACK</string>
 
 </resources>
