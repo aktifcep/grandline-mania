@@ -50,11 +50,16 @@
 
         <TextView
             android:id="@+id/categoryLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:textIsSelectable="false"
+            android:background="@drawable/btn_green_matte"
+            android:textColor="@color/white"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ImageView
