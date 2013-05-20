@@ -10,5 +10,9 @@
     <string name="play_button">PLAY</string>
     <string name="empty"> </string>
     <string name="back_button">BACK</string>
+    <string name="language">LANGUAGE</string>
+    <string name="info">INFO</string>
+    <string name="sound_on">ON</string>
+    <string name="sound_off">OFF</string>
 
 </resources>

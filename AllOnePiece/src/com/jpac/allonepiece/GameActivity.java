@@ -2,6 +2,7 @@ package com.jpac.allonepiece;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -21,12 +22,15 @@ import com.jpac.allonepiece.model.AnswerOnClickListener;
 import com.jpac.allonepiece.model.ButtonManager;
 import com.jpac.allonepiece.model.QuestionBundle;
 import com.jpac.allonepiece.model.QuestionManager;
+import com.jpac.allonepiece.util.Util;
 
 public class GameActivity extends Activity implements AnswerDoneListener {
 
 	private ButtonManager btnManager = ButtonManager.getInstance();
 	
 	private String currentAnswer;
+	
+	private String rawCurrentAnswer;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,8 @@ public class GameActivity extends Activity implements AnswerDoneListener {
 			Toast.makeText(getApplicationContext(), "Game is Finished", Toast.LENGTH_SHORT).show();
 		} else {
 			
-			char[] xyz = QuestionManager.getInstance().generateRandomLetters(qb.getAnswer(), qb.getRandomLetterSeed());
+			rawCurrentAnswer = qb.getAnswer();
+			char[] xyz = QuestionManager.getInstance().generateRandomLetters(rawCurrentAnswer, qb.getRandomLetterSeed());
 			
 			((Button) findViewById(R.id.letter1)).setText(""+xyz[0]);
 			((Button) findViewById(R.id.letter2)).setText(""+xyz[1]);
@@ -83,10 +88,13 @@ public class GameActivity extends Activity implements AnswerDoneListener {
 			btnManager.addChoiceButton((Button) findViewById(R.id.letter12));
 			btnManager.addChoiceButton((Button) findViewById(R.id.letter13));
 			btnManager.addChoiceButton((Button) findViewById(R.id.letter14));
+
+			Typeface font = Util.getFont(getAssets(), "fonts/freshman.ttf");
+			btnManager.setTypeFaceForChoice(font);
 			
 			((TextView) findViewById(R.id.categoryLabel)).setText(qb.getCategory().getName());
 			
-			prepareAnswer(qb.getAnswer());
+			prepareAnswer(rawCurrentAnswer);
 			
 			((Button) findViewById(R.id.backButton)).setOnClickListener(new OnClickListener() {
 				
@@ -97,6 +105,10 @@ public class GameActivity extends Activity implements AnswerDoneListener {
 			});
 			
 			((TextView) findViewById(R.id.levelLabel)).setText(""+QuestionManager.getInstance().getAnsweredQuestionsCount());
+			
+			((TextView) findViewById(R.id.levelLabel)).setTypeface(font);
+			((TextView) findViewById(R.id.categoryLabel)).setTypeface(font);
+			((TextView) findViewById(R.id.backButton)).setTypeface(font);
 		}		
 	}
 	
@@ -121,11 +133,15 @@ public class GameActivity extends Activity implements AnswerDoneListener {
 			int m = answers.length();
 			for(int j=0; j<m; j++) {
 				Button button = new Button(this);
+				button.setBackgroundResource(R.drawable.btn_black);
 				button.setText("");
-				button.setWidth(55);
 				button.setClickable(false);
 				button.setEnabled(false);
+				final LinearLayout.LayoutParams viewMargin = new LinearLayout.LayoutParams(55, 55);
+				viewMargin.setMargins(1, 1, 1, 1);
+				button.setLayoutParams(viewMargin);
 				button.setOnClickListener(new AnswerOnClickListener(idx++));
+				
 				sublayout.addView(button);
 				btnManager.addAnswerButton(button);
 			}
@@ -133,12 +149,17 @@ public class GameActivity extends Activity implements AnswerDoneListener {
 			layout.addView(sublayout);
 			
 		}
+
+		Typeface font = Util.getFont(getAssets(), "fonts/freshman.ttf");
+		btnManager.setTypeFaceForAnswer(font);
 	}
 
 	@Override
 	public void onAnswerComplete(String sequence) {
 		if(sequence.compareTo(currentAnswer) == 0) {
-			startActivity(new Intent(this, CorrectAnswerActivity.class));
+			Intent intent = new Intent(this, CorrectAnswerActivity.class);
+			intent.putExtra("answer", rawCurrentAnswer);
+			startActivity(intent);
 		} else {
 			Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
 			findViewById(R.id.answerLayout).startAnimation(shake);

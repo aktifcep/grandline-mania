@@ -2,6 +2,9 @@ package com.jpac.allonepiece.util;
 
 import java.util.Random;
 
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
+
 public class Util {
 
 	public static Random globalRand = new Random(System.currentTimeMillis());
@@ -18,5 +21,9 @@ public class Util {
 		}
 		
 		return original;
+	}
+	
+	public static Typeface getFont(AssetManager mgr, String font) {
+		return Typeface.createFromAsset(mgr, font);
 	}
 }
