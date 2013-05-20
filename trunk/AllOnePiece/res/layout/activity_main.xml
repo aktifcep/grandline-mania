@@ -32,7 +32,7 @@
             android:id="@+id/currentLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Large Text"
+            android:textIsSelectable="false"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
@@ -44,7 +44,7 @@
                 android:id="@+id/playButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="@string/play_button" />
 
         </LinearLayout>
 
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="Button" />
+            android:text="@string/language" />
 
         <Button
             android:id="@+id/infoOption"
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="Button" />
+            android:text="@string/info" />
 
         <Button
             android:id="@+id/soundOption"
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Button" />
+            android:text="@string/sound_on" />
 
     </RelativeLayout>
 
