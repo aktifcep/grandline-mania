@@ -1,28 +1,24 @@
 package com.jpac.allonepiece;
 
-import com.jpac.allonepiece.model.AnswerOnClickListener;
-
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.Gravity;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-public class CorrectAnswerActivity extends Activity {
+import com.jpac.allonepiece.util.Util;
+
+public class CorrectAnswerActivity extends GameCoreActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
-                                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		this.setContentView(R.layout.activity_correct);
 		
@@ -33,7 +29,13 @@ public class CorrectAnswerActivity extends Activity {
 				startActivity(new Intent(CorrectAnswerActivity.this, GameActivity.class));
 			}
 		});
+
+		Typeface font = Util.getFont(getAssets(), "fonts/freshman.ttf");
 		
+		((TextView) findViewById(R.id.textView1)).setTypeface(font);
+		((TextView) findViewById(R.id.textView2)).setTypeface(font);
+		((Button) findViewById(R.id.continueButton)).setTypeface(font);
+				
 		String answer = getIntent().getStringExtra("answer");
 		prepareAnswer(answer);
 	}
@@ -45,7 +47,8 @@ public class CorrectAnswerActivity extends Activity {
 		
 		String[] subLayouts = answer.split("%");
 		int n = subLayouts.length;
-		int idx = 0;
+
+		Typeface font = Util.getFont(getAssets(), "fonts/freshman.ttf");
 		
 		for(int i=0; i<n; i++) {
 			// TODO: put dynamic addition of linear layouts for answer here
@@ -58,11 +61,15 @@ public class CorrectAnswerActivity extends Activity {
 			int m = answers.length();
 			for(int j=0; j<m; j++) {
 				Button button = new Button(this);
-				button.setText(answers.charAt(j)+"");
-				button.setWidth(55);
+				button.setBackgroundResource(R.drawable.btn_black);
+				button.setTypeface(font);
+				button.setTextColor(Color.WHITE);
+				button.setText("");
 				button.setClickable(false);
 				button.setEnabled(false);
-				button.setOnClickListener(new AnswerOnClickListener(idx++));
+				final LinearLayout.LayoutParams viewMargin = new LinearLayout.LayoutParams(55, 55);
+				viewMargin.setMargins(1, 1, 1, 1);
+				button.setLayoutParams(viewMargin);
 				sublayout.addView(button);
 			}
 			
