@@ -1,15 +1,14 @@
 package com.jpac.allonepiece;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -18,15 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jpac.allonepiece.model.AnswerDoneListener;
-import com.jpac.allonepiece.model.AnswerOnClickListener;
-import com.jpac.allonepiece.model.ButtonManager;
+import com.jpac.allonepiece.model.ButtonManager2;
 import com.jpac.allonepiece.model.QuestionBundle;
 import com.jpac.allonepiece.model.QuestionManager;
 import com.jpac.allonepiece.util.Util;
 
-public class GameActivity extends Activity implements AnswerDoneListener {
+public class GameActivity extends GameCoreActivity implements AnswerDoneListener {
 
-	private ButtonManager btnManager = ButtonManager.getInstance();
+	private ButtonManager2 btnManager = ButtonManager2.getInstance();
 	
 	private String currentAnswer;
 	
@@ -35,10 +33,6 @@ public class GameActivity extends Activity implements AnswerDoneListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
-                                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.activity_game);
 		
@@ -74,23 +68,7 @@ public class GameActivity extends Activity implements AnswerDoneListener {
 			((Button) findViewById(R.id.letter13)).setText(""+xyz[12]);
 			((Button) findViewById(R.id.letter14)).setText(""+xyz[13]);
 
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter1));
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter2));
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter3));
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter4));
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter5));
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter6));
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter7));
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter8));
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter9));
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter10));
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter11));
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter12));
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter13));
-			btnManager.addChoiceButton((Button) findViewById(R.id.letter14));
-
-			Typeface font = Util.getFont(getAssets(), "fonts/freshman.ttf");
-			btnManager.setTypeFaceForChoice(font);
+			btnManager.init(this, xyz);
 			
 			((TextView) findViewById(R.id.categoryLabel)).setText(qb.getCategory().getName());
 			
@@ -105,7 +83,8 @@ public class GameActivity extends Activity implements AnswerDoneListener {
 			});
 			
 			((TextView) findViewById(R.id.levelLabel)).setText(""+QuestionManager.getInstance().getAnsweredQuestionsCount());
-			
+
+			Typeface font = Util.getFont(getAssets(), "fonts/freshman.ttf");
 			((TextView) findViewById(R.id.levelLabel)).setTypeface(font);
 			((TextView) findViewById(R.id.categoryLabel)).setTypeface(font);
 			((TextView) findViewById(R.id.backButton)).setTypeface(font);
@@ -115,11 +94,11 @@ public class GameActivity extends Activity implements AnswerDoneListener {
 	protected void prepareAnswer(String answer) {
 		LinearLayout layout = (LinearLayout) findViewById(R.id.answerLayout);
 		layout.removeAllViews();
-		btnManager.clearAnswer();
 		
 		String[] subLayouts = answer.split("%");
 		int n = subLayouts.length;
-		int idx = 0;
+
+		Typeface font = Util.getFont(getAssets(), "fonts/freshman.ttf");
 		
 		for(int i=0; i<n; i++) {
 			// TODO: put dynamic addition of linear layouts for answer here
@@ -134,14 +113,14 @@ public class GameActivity extends Activity implements AnswerDoneListener {
 			for(int j=0; j<m; j++) {
 				Button button = new Button(this);
 				button.setBackgroundResource(R.drawable.btn_black);
+				button.setTypeface(font);
+				button.setTextColor(Color.WHITE);
 				button.setText("");
 				button.setClickable(false);
 				button.setEnabled(false);
 				final LinearLayout.LayoutParams viewMargin = new LinearLayout.LayoutParams(55, 55);
 				viewMargin.setMargins(1, 1, 1, 1);
 				button.setLayoutParams(viewMargin);
-				button.setOnClickListener(new AnswerOnClickListener(idx++));
-				
 				sublayout.addView(button);
 				btnManager.addAnswerButton(button);
 			}
@@ -149,15 +128,14 @@ public class GameActivity extends Activity implements AnswerDoneListener {
 			layout.addView(sublayout);
 			
 		}
-
-		Typeface font = Util.getFont(getAssets(), "fonts/freshman.ttf");
-		btnManager.setTypeFaceForAnswer(font);
 	}
 
 	@Override
 	public void onAnswerComplete(String sequence) {
+		Log.v("jpac", ">" + currentAnswer + "><" + sequence + "<");
 		if(sequence.compareTo(currentAnswer) == 0) {
 			Intent intent = new Intent(this, CorrectAnswerActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			intent.putExtra("answer", rawCurrentAnswer);
 			startActivity(intent);
 		} else {
