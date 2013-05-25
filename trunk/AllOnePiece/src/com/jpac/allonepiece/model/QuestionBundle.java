@@ -16,6 +16,17 @@ public class QuestionBundle {
 
 	private boolean answered;
 	
+	public QuestionBundle() { }
+	
+	public QuestionBundle(QuestionBundle qb) {
+		this.image = qb.image;
+		this.category = qb.category;
+		this.answer = qb.answer;
+		this.id = qb.id;
+		this.randomLetterSeed = qb.randomLetterSeed;
+		this.answered = qb.answered;
+	}
+	
 	public BitmapDrawable getImage() {
 		return this.image;
 	}
@@ -64,4 +75,7 @@ public class QuestionBundle {
 		this.answered = answered;
 	}
 	
+	public QuestionBundle clone() {
+		return new QuestionBundle(this);
+	}
 }

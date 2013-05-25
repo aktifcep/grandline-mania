@@ -35,9 +35,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:gravity="center"
             android:text=""
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white" />
+            android:textIsSelectable="false"
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>
 
     <RelativeLayout

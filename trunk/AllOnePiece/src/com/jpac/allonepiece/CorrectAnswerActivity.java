@@ -47,6 +47,12 @@ public class CorrectAnswerActivity extends GameCoreActivity {
 		
 		String[] subLayouts = answer.split("%");
 		int n = subLayouts.length;
+		int index = 0;
+		
+		String fix = "";
+		for(int i=0; i<n; i++) {
+			fix += subLayouts[i];
+		}
 
 		Typeface font = Util.getFont(getAssets(), "fonts/freshman.ttf");
 		
@@ -64,7 +70,7 @@ public class CorrectAnswerActivity extends GameCoreActivity {
 				button.setBackgroundResource(R.drawable.btn_black);
 				button.setTypeface(font);
 				button.setTextColor(Color.WHITE);
-				button.setText("");
+				button.setText(""+fix.charAt(index++));
 				button.setClickable(false);
 				button.setEnabled(false);
 				final LinearLayout.LayoutParams viewMargin = new LinearLayout.LayoutParams(55, 55);

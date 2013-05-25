@@ -14,7 +14,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jpac.allonepiece.model.AnswerDoneListener;
 import com.jpac.allonepiece.model.ButtonManager2;
@@ -24,10 +23,12 @@ import com.jpac.allonepiece.util.Util;
 
 public class GameActivity extends GameCoreActivity implements AnswerDoneListener {
 
+	protected static QuestionBundle qb = null;
+	
 	private ButtonManager2 btnManager = ButtonManager2.getInstance();
 	
 	private String currentAnswer;
-	
+
 	private String rawCurrentAnswer;
 	
 	@Override
@@ -44,14 +45,16 @@ public class GameActivity extends GameCoreActivity implements AnswerDoneListener
 	
 	public void showQuestion() {
 		
-		QuestionBundle qb = QuestionManager.getInstance().getNextQuestion(null);
+		QuestionBundle question = QuestionManager.getInstance().getNextQuestion(qb);
 		
-		if(qb == null) {
-			Toast.makeText(getApplicationContext(), "Game is Finished", Toast.LENGTH_SHORT).show();
-		} else {
+		if(question == null) {
 			
-			rawCurrentAnswer = qb.getAnswer();
-			char[] xyz = QuestionManager.getInstance().generateRandomLetters(rawCurrentAnswer, qb.getRandomLetterSeed());
+		} else {
+		
+			qb = (QuestionBundle) question.clone();
+				
+			rawCurrentAnswer = question.getAnswer();
+			char[] xyz = QuestionManager.getInstance().generateRandomLetters(rawCurrentAnswer, question.getRandomLetterSeed());
 			
 			((Button) findViewById(R.id.letter1)).setText(""+xyz[0]);
 			((Button) findViewById(R.id.letter2)).setText(""+xyz[1]);
@@ -67,10 +70,10 @@ public class GameActivity extends GameCoreActivity implements AnswerDoneListener
 			((Button) findViewById(R.id.letter12)).setText(""+xyz[11]);
 			((Button) findViewById(R.id.letter13)).setText(""+xyz[12]);
 			((Button) findViewById(R.id.letter14)).setText(""+xyz[13]);
-
+	
 			btnManager.init(this, xyz);
 			
-			((TextView) findViewById(R.id.categoryLabel)).setText(qb.getCategory().getName());
+			((TextView) findViewById(R.id.categoryLabel)).setText(question.getCategory().getName());
 			
 			prepareAnswer(rawCurrentAnswer);
 			
@@ -82,13 +85,13 @@ public class GameActivity extends GameCoreActivity implements AnswerDoneListener
 				}
 			});
 			
-			((TextView) findViewById(R.id.levelLabel)).setText(""+QuestionManager.getInstance().getAnsweredQuestionsCount());
-
+			((TextView) findViewById(R.id.levelLabel)).setText("Level "+QuestionManager.getInstance().getAnsweredQuestionsCount());
+	
 			Typeface font = Util.getFont(getAssets(), "fonts/freshman.ttf");
 			((TextView) findViewById(R.id.levelLabel)).setTypeface(font);
 			((TextView) findViewById(R.id.categoryLabel)).setTypeface(font);
-			((TextView) findViewById(R.id.backButton)).setTypeface(font);
-		}		
+			((TextView) findViewById(R.id.backButton)).setTypeface(font);		
+		}
 	}
 	
 	protected void prepareAnswer(String answer) {
