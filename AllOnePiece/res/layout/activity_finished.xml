@@ -10,7 +10,6 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
         android:background="@drawable/btn_blue_matte"
         android:text="@string/continue_button" />
 
@@ -52,7 +51,6 @@
         android:layout_alignLeft="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:background="@drawable/star"
         android:textIsSelectable="false"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
