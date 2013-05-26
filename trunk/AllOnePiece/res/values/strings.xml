@@ -14,5 +14,9 @@
     <string name="info">INFO</string>
     <string name="sound_on">ON</string>
     <string name="sound_off">OFF</string>
-
+	<string name="game_finished">SUPER!</string>
+	<string name="game_finished_detail_1">You\'ve solved all puzzles.</string>
+	<string name="game_finished_detail_2">Stay tuned. Wait for the next update.</string>
+	<string name="game_finished_detail_3">TO BE CONTINUE</string>
+    
 </resources>
