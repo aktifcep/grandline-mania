@@ -25,6 +25,8 @@ public class GameActivity extends GameCoreActivity implements AnswerDoneListener
 
 	protected static QuestionBundle qb = null;
 	
+	protected static QuestionBundle answered = null;
+	
 	private ButtonManager2 btnManager = ButtonManager2.getInstance();
 	
 	private String currentAnswer;
@@ -45,7 +47,7 @@ public class GameActivity extends GameCoreActivity implements AnswerDoneListener
 	
 	public void showQuestion() {
 		
-		QuestionBundle question = QuestionManager.getInstance().getNextQuestion(qb);
+		QuestionBundle question = QuestionManager.getInstance().getNextQuestion(answered);
 		
 		if(question == null) {
 			
@@ -137,6 +139,7 @@ public class GameActivity extends GameCoreActivity implements AnswerDoneListener
 	public void onAnswerComplete(String sequence) {
 		Log.v("jpac", ">" + currentAnswer + "><" + sequence + "<");
 		if(sequence.compareTo(currentAnswer) == 0) {
+			answered = qb;
 			Intent intent = new Intent(this, CorrectAnswerActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			intent.putExtra("answer", rawCurrentAnswer);

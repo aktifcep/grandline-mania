@@ -30,7 +30,7 @@
         <activity
             android:name="com.jpac.allonepiece.CorrectAnswerActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Dialog">
+            android:theme="@style/DialogTheme">
         </activity>
     </application>
 
