@@ -19,6 +19,8 @@ import com.jpac.allonepiece.model.AnswerDoneListener;
 import com.jpac.allonepiece.model.ButtonManager2;
 import com.jpac.allonepiece.model.QuestionBundle;
 import com.jpac.allonepiece.model.QuestionManager;
+import com.jpac.allonepiece.model.UserDataManager;
+import com.jpac.allonepiece.model.UserDataManager.UserData;
 import com.jpac.allonepiece.util.Util;
 
 public class GameActivity extends GameCoreActivity implements AnswerDoneListener {
@@ -33,11 +35,22 @@ public class GameActivity extends GameCoreActivity implements AnswerDoneListener
 
 	private String rawCurrentAnswer;
 	
+	private QuestionBundle question;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_game);
+
+		
+		UserData data = UserDataManager.getInstance().getData(this);
+		if(data.getQID() != -1) {
+			// TODO: if there is a save data
+			question = QuestionManager.getInstance().getQuestionByID(data.getQID());
+		} else {
+			question = QuestionManager.getInstance().getNextQuestion(answered);
+		}
 		
 		btnManager.addAnswerDoneListener(this);
 		currentAnswer = "";
@@ -47,12 +60,9 @@ public class GameActivity extends GameCoreActivity implements AnswerDoneListener
 	
 	public void showQuestion() {
 		
-		QuestionBundle question = QuestionManager.getInstance().getNextQuestion(answered);
-		
 		if(question == null) {
 			
-		} else {
-		
+		} else {	
 			qb = (QuestionBundle) question.clone();
 				
 			rawCurrentAnswer = question.getAnswer();

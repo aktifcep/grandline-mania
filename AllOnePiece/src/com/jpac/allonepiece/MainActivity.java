@@ -19,6 +19,7 @@ public class MainActivity extends GameCoreActivity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_main);
+		
 		QuestionManager.getInstance().init(getApplicationContext());
 
 		findViewById(R.id.playButton).setOnClickListener(new OnClickListener() {
