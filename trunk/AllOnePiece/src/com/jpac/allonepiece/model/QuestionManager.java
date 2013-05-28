@@ -49,6 +49,16 @@ public class QuestionManager {
 		}
 	}
 	
+	public QuestionBundle getQuestionByID(int id) {
+		QuestionBundle qb = null;
+		
+		if(!answered.containsKey(id) && answered.size() != questions.size()) {
+			qb = questions.get(id);
+		}
+			
+		return qb;
+	}
+	
 	public QuestionBundle getNextQuestion(QuestionBundle previous) {
 		if(previous != null) {
 			handler.updateQuestion(previous.getID(), true);
