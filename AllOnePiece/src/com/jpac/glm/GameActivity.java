@@ -56,7 +56,6 @@ public class GameActivity extends GameCoreActivity implements AnswerDoneListener
 		Log.v("jpac", data.toString());
 		userdata = data;
 		if(data.getQID() != -1) {
-			// TODO: if there is a save data
 			question = QuestionManager.getInstance().getQuestionByID(data.getQID());
 		} else {
 			question = QuestionManager.getInstance().getNextQuestion(null);
