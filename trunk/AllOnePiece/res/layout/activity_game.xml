@@ -21,7 +21,7 @@
             android:text="@string/back_button" />
 
         <TextView
-            android:id="@+id/difficultyLabel"
+            android:id="@+id/goldLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -71,7 +71,69 @@
             android:layout_below="@id/categoryLabel"
             android:layout_centerHorizontal="true"
             android:src="@drawable/ic_launcher"
+			android:background="#fff"
+			android:padding="5dp"
             android:contentDescription="@string/empty" />
+
+        <Button
+            android:id="@+id/addAnswerButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/categoryLabel"
+            android:layout_marginTop="15dp"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/removeChoiceButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addAnswerButton"
+            android:layout_alignParentRight="true"
+            android:text="Button" />
+        
+        <Button
+            android:id="@+id/button3"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/removeChoiceButton"
+            android:layout_alignParentRight="true"
+            android:text="Button"
+            android:visibility="gone" />
+        
+        <Button
+            android:id="@+id/button4"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/categoryLabel"
+            android:layout_marginTop="15dp"
+            android:text="Button"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/button5"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button4"
+            android:layout_alignParentLeft="true"
+            android:text="Button"
+            android:visibility="gone" />
+        
+        <Button
+            android:id="@+id/button6"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button5"
+            android:layout_alignParentLeft="true"
+            android:text="Button"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
