@@ -151,7 +151,7 @@ public class ButtonManager2 {
 	
 	public void putCorrectAnswerButton(String answer) {
 		int n = answer.length();
-		while(true) {
+		while(choiceClicked != n) {
 			int index = Util.globalRand.nextInt(n);
 			AnswerButton ans = answers.get(index);
 			if(ans.getText().compareTo("") == 0) {
@@ -177,12 +177,14 @@ public class ButtonManager2 {
 		String text = btn.getText();
 		for(int i=0; i<14; i++) {
 			if(i < 7) {
-				if(text.compareTo(layer1[i].getText().toString()) == 0) {
+				if(text.compareTo(layer1[i].getText().toString()) == 0
+						&& layer1[i].getVisibility() == View.VISIBLE) {
 					layer1[i].setVisibility(View.INVISIBLE);
 					break;
 				}
 			} else {
-				if(text.compareTo(layer2[i-7].getText().toString()) == 0) {
+				if(text.compareTo(layer2[i-7].getText().toString()) == 0
+						&& layer2[i-7].getVisibility() == View.VISIBLE) {
 					layer2[i-7].setVisibility(View.INVISIBLE);
 					break;
 				}
