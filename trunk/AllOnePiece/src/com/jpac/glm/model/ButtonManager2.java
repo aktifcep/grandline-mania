@@ -151,8 +151,43 @@ public class ButtonManager2 {
 	
 	public void putCorrectAnswerButton(String answer) {
 		int n = answer.length();
-		int index = Util.globalRand.nextInt(n);
-		Log.w("jpac", "Index: "+index);
+		while(true) {
+			int index = Util.globalRand.nextInt(n);
+			AnswerButton ans = answers.get(index);
+			if(ans.getText().compareTo("") == 0) {
+				ans.disable();
+				ans.setText(answer.charAt(index)+"");
+				ans.lockButton();
+				choiceClicked++;
+				lockChoiceButton(ans);
+				if(choiceClicked == n) {
+					String sequence = "";
+					for(int i=0; i<n; i++) {
+						sequence += answers.get(i).getText();
+					}
+					answerDoneListener.onAnswerComplete(sequence);
+				}
+				break;
+			}
+		}
+		
+	}
+	
+	private void lockChoiceButton(AnswerButton btn) {
+		String text = btn.getText();
+		for(int i=0; i<14; i++) {
+			if(i < 7) {
+				if(text.compareTo(layer1[i].getText().toString()) == 0) {
+					layer1[i].setVisibility(View.INVISIBLE);
+					break;
+				}
+			} else {
+				if(text.compareTo(layer2[i-7].getText().toString()) == 0) {
+					layer2[i-7].setVisibility(View.INVISIBLE);
+					break;
+				}
+			}
+		}
 	}
 
 	protected class ChoiceClickListener implements View.OnClickListener {
@@ -231,6 +266,11 @@ public class ButtonManager2 {
 		
 		public void setText(String text) {
 			this.btn.setText(text);
+		}
+		
+		public void lockButton() {
+			Log.v("jpac", "LOCK");
+			this.btn.setBackgroundResource(R.drawable.btn_red_matte);
 		}
 
 	}
