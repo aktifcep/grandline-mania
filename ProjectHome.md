@@ -1,0 +1,1 @@
+This game is not an official version of Icomania. The game mechanics is cloned, changing only the theme from General Info to One Piece. This is a fan-made game and is no way related to the One Piece franchise.
